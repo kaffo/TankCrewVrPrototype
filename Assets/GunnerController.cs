@@ -8,6 +8,7 @@ public class GunnerController : MonoBehaviour {
 
     public GunController gunController;
     public TurretController turretController;
+    public GameObject loader;
 
     private float horizontal = 0f;
     private float vertial = 0f;
@@ -92,7 +93,15 @@ public class GunnerController : MonoBehaviour {
                 {
                     horizontal = Mathf.Pow(LeftTouchAxis.x, 2);
                 }
-                
+            }
+            if (rightDevice.GetPress(app))
+            {
+                Debug.Log("Switching");
+                if (loader)
+                {
+                    loader.SetActive(true);
+                    gameObject.SetActive(false);
+                }
             }
             deltaTime = 0f;
         }
