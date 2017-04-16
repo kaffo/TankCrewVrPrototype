@@ -10,12 +10,19 @@ public class GunController : MonoBehaviour {
 
     private GameObject barrel;
     private GameObject breech;
+    private AudioSource reloadAudio;
+    private AudioSource fireAudio;
+    private bool reloaded = false;
     private float timePassed = 0f;
 
 	// Use this for initialization
 	void Start () {
         breech = transform.FindChild("Breech").gameObject;
         barrel = transform.FindChild("Barrel").gameObject;
+
+        fireAudio = transform.GetComponent<AudioSource>();
+        reloadAudio = breech.transform.GetComponent<AudioSource>();
+
         if (breech == null || barrel == null || shellPrefab == null)
         {
             Debug.Log("Cannot find all gun GameObjects!");
@@ -27,6 +34,11 @@ public class GunController : MonoBehaviour {
         if (timePassed < reloadTime)
         {
             timePassed += Time.deltaTime;
+        } else if (!reloaded)
+        {
+            Debug.Log("Reload");
+            reloaded = true;
+            reloadAudio.Play();
         }
     }
 
@@ -59,12 +71,14 @@ public class GunController : MonoBehaviour {
 
     public void fireGun()
     {
-        if (timePassed >= reloadTime)
+        if (reloaded)
         {
-            //Debug.Log("Firing");
+            Debug.Log("Firing");
             timePassed = 0f;
+            reloaded = false;
             GameObject shell = Instantiate(shellPrefab);
             shell.GetComponent<ShellController>().gun = gameObject;
+            fireAudio.Play();
         }
     }
 }
