@@ -60,9 +60,15 @@ public class GunnerController : MonoBehaviour {
     void Start () {
 		
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    void OnEnable()
+    {
+        leftHand.gameObject.SetActive(true);
+        rightHand.gameObject.SetActive(true);
+    }
+
+    // Update is called once per frame
+    void Update () {
         deltaTime += Time.deltaTime;
         if (deltaTime > gameLoopTime)
         {
@@ -96,11 +102,13 @@ public class GunnerController : MonoBehaviour {
             }
             if (rightDevice.GetPress(app))
             {
-                Debug.Log("Switching");
+                //Debug.Log("Switching");
                 if (loader)
                 {
                     loader.SetActive(true);
                     gameObject.SetActive(false);
+                    leftHand.gameObject.SetActive(false);
+                    rightHand.gameObject.SetActive(false);
                 }
             }
             deltaTime = 0f;

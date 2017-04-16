@@ -66,6 +66,14 @@ public class AmmoController : MonoBehaviour {
         {
             Debug.Log("Attaching");
             AttachController(other.gameObject.transform);
+        } else if (other.CompareTag("Breech"))
+        {
+            if (other.transform.parent.GetComponent<GunController>().reloadGun())
+            {
+                if (firstController) { firstController.tag = "Controller"; }
+                if (secondController) { secondController.tag = "Controller"; }
+                Destroy(gameObject);
+            }
         }
     }
 }

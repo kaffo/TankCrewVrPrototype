@@ -6,6 +6,8 @@ public class LoaderController : MonoBehaviour {
     public SteamVR_TrackedObject leftHand;
     public SteamVR_TrackedObject rightHand;
 
+    public GameObject gunner;
+
     public float gameLoopTime = 0.1f;
 
     private float deltaTime = 0f;
@@ -53,9 +55,30 @@ public class LoaderController : MonoBehaviour {
     void Start () {
 		
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    void OnEnable()
+    {
+        leftHand.gameObject.SetActive(true);
+        rightHand.gameObject.SetActive(true);
+    }
+
+    // Update is called once per frame
+    void Update () {
+        deltaTime += Time.deltaTime;
+        if (deltaTime > gameLoopTime)
+        {
+            if (rightDevice.GetPress(app))
+            {
+                //Debug.Log("Switching");
+                if (gunner)
+                {
+                    gunner.SetActive(true);
+                    gameObject.SetActive(false);
+                    leftHand.gameObject.SetActive(false);
+                    rightHand.gameObject.SetActive(false);
+                }
+            }
+            deltaTime = 0f;
+        }
+    }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class GunController : MonoBehaviour {
     public float maxAngle = 35f;
     public float minAngle = -5f;
-    public float reloadTime = 5.0f;
+    //public float reloadTime = 5.0f;
     public GameObject shellPrefab;
 
     private GameObject barrel;
@@ -31,7 +31,7 @@ public class GunController : MonoBehaviour {
 
     private void Update()
     {
-        if (timePassed < reloadTime)
+        /*if (timePassed < reloadTime)
         {
             timePassed += Time.deltaTime;
         } else if (!reloaded)
@@ -39,7 +39,7 @@ public class GunController : MonoBehaviour {
             //Debug.Log("Reload");
             reloaded = true;
             reloadAudio.Play();
-        }
+        }*/
     }
 
     public float currentAngle
@@ -80,5 +80,16 @@ public class GunController : MonoBehaviour {
             shell.GetComponent<ShellController>().gun = gameObject;
             fireAudio.Play();
         }
+    }
+
+    public bool reloadGun()
+    {
+        if (!reloaded)
+        {
+            reloaded = true;
+            reloadAudio.Play();
+            return true;
+        }
+        return false;
     }
 }
