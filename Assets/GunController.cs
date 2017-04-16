@@ -36,7 +36,7 @@ public class GunController : MonoBehaviour {
             timePassed += Time.deltaTime;
         } else if (!reloaded)
         {
-            Debug.Log("Reload");
+            //Debug.Log("Reload");
             reloaded = true;
             reloadAudio.Play();
         }
@@ -73,7 +73,7 @@ public class GunController : MonoBehaviour {
     {
         if (reloaded)
         {
-            Debug.Log("Firing");
+            //Debug.Log("Firing");
             timePassed = 0f;
             reloaded = false;
             GameObject shell = Instantiate(shellPrefab);
