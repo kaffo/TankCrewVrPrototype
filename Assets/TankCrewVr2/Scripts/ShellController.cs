@@ -14,7 +14,7 @@ public class ShellController : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         transform.rotation = gun.transform.rotation;
         transform.position = gun.transform.TransformPoint(gun.transform.localPosition + new Vector3(3f, -0.2f, 0));
-        rb.AddForce(gun.transform.right * shellSpeed, ForceMode.Impulse);
+        rb.AddForce(gun.transform.forward * shellSpeed, ForceMode.Impulse);
         //Debug.Log(barrel.transform.up * shellSpeed);
     }
 
@@ -28,7 +28,7 @@ public class ShellController : MonoBehaviour {
     }
 
     void FixedUpdate () {
-        Vector3 fwd = transform.TransformDirection(Vector3.right);
+        Vector3 fwd = transform.TransformDirection(Vector3.forward);
         RaycastHit hit;
         Debug.DrawRay(transform.position, fwd, Color.blue);
         if (Physics.Raycast(transform.position, fwd, out hit, 1.0f))
